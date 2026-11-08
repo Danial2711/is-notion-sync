@@ -1,0 +1,23 @@
+{
+  // Template: `npm run setup` copies this to wrangler.jsonc (gitignored) with your own KV id.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "is-notion-sync",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "kv_namespaces": [
+    { "binding": "KV", "id": "YOUR_KV_NAMESPACE_ID" }
+  ],
+  // Every 2 hours, 06:00-22:00 Prague in winter (05-21 UTC). Gentle on IS.
+  "triggers": { "crons": ["0 5-21/2 * * *"] },
+  "vars": {
+    // Notion database IDs (the part of the database URL before "?v=").
+    "NOTION_ASSIGNMENTS_DB": "267156cb1caa81d8b235c4aced26bcb5",
+    "NOTION_COURSES_DB": "267156cb1caa8129b4eafd4351f780e8",
+    "NOTION_EXAMS_DB": "dd338880299d4869956a0089fd3bc28a"
+  },
+  "observability": { "enabled": true }
+  // Secrets (set with `npx wrangler secret put NAME`, never committed):
+  //   IS_UCO, IS_PASSWORD  - your UČO and PRIMARY MU password
+  //   NOTION_TOKEN         - token of your "IS Sync" internal integration
+  //   RUN_PASSWORD         - password for the manual /run endpoint (make one up)
+}
