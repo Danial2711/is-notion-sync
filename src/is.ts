@@ -166,11 +166,17 @@ export interface ExamSeriesLink { href: string; label: string; code: string; ser
 export interface ExamDate { start: Due; room: string; registered: boolean }
 
 export function parseExamOverview(html: string): ExamSeriesLink[] {
+  // Only the "upcoming" part: links below "courses no upcoming examination dates have been posted for"
+  // lead to expired dates (and to non-exam series such as "přihlašování k výuce").
+  const cut = html.search(/no upcoming examination dates|nebyly vypsány žádné/i);
+  const upcoming = cut >= 0 ? html.slice(0, cut) : html;
   const out: ExamSeriesLink[] = [];
-  for (const m of html.matchAll(/<a\b[^>]*href="([^"]*prihl_na_zkousky[^"]*serie=(\d+)[^"]*)"[^>]*>([\s\S]*?)<\/a>/g)) {
+  // This page is old-style HTML with upper-case tags (<A HREF="...">), hence the i flag.
+  for (const m of upcoming.matchAll(/<a\b[^>]*href="([^"]*prihl_na_zkousky[^"]*serie=(\d+)[^"]*)"[^>]*>([\s\S]*?)<\/a>/gi)) {
     const label = text(m[3]!);
     const code = label.match(/^[A-Z]{1,4}\d{3,4}/)?.[0];
-    if (code && !out.some(o => o.serie === m[2])) out.push({ href: decode(m[1]!), label, code, serie: m[2]! });
+    if (!code || /přihlašování k výuce|registration for (teaching|classes)/i.test(label)) continue;
+    if (!out.some(o => o.serie === m[2])) out.push({ href: decode(m[1]!), label, code, serie: m[2]! });
   }
   return out;
 }

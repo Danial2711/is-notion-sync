@@ -1,5 +1,5 @@
 import { hwNumber } from './config';
-import { detectHomework, examKind, homeworkChapters, notebookSummary, weeklyDue } from './detect';
+import { detectExams, detectHomework, examKind, homeworkChapters, notebookSummary, weeklyDue } from './detect';
 import * as F from './fixtures';
 import { parseChapterDeadline, parseExamOverview, parseExamSeries, parseFmgr, parseNotebooks, parseSyllabus } from './is';
 
@@ -62,6 +62,13 @@ describe('exams', () => {
     expect(o).toEqual([expect.objectContaining({ code: 'PA191', serie: '207460', label: 'PA191 Advanced Computer Networking - pre-term exam' })]);
     expect(parseExamSeries(F.EXAM_SERIES)).toEqual([{ start: { date: '2026-12-16', time: '08:00' }, room: 'A318', registered: false }]);
     expect(examKind(o[0]!.label)).toBe('pre-term');
+  });
+
+  it('drops exam dates that are already over', () => {
+    const link = parseExamOverview(F.EXAM_OVERVIEW)[0]!;
+    const dates = parseExamSeries(F.EXAM_SERIES);
+    expect(detectExams([{ link, dates }], '2026-11-08')).toHaveLength(1);
+    expect(detectExams([{ link, dates }], '2026-12-17')).toHaveLength(0);
   });
 });
 

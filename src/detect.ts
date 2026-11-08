@@ -120,8 +120,8 @@ export interface Exam {
   registered: boolean; link: string;
 }
 
-export function detectExams(series: { link: ExamSeriesLink; dates: ExamDate[] }[]): Exam[] {
-  return series.flatMap(({ link, dates }) => dates.map(d => ({
+export function detectExams(series: { link: ExamSeriesLink; dates: ExamDate[] }[], today: string): Exam[] {
+  return series.flatMap(({ link, dates }) => dates.filter(d => d.start.date >= today).map(d => ({
     id: `exam:${link.serie}:${d.start.date}T${d.start.time}`,
     course: link.code,
     name: link.label,

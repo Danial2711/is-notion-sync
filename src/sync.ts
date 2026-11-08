@@ -101,7 +101,7 @@ export async function gather(is: IsClient, today: string, warn: (s: string) => v
     const dates = await soft(`exams ${link.code}`, async () => parseExamSeries(await is.page(href)));
     if (dates) series.push({ link: { ...link, href }, dates });
   }
-  return { courses, notebooks, exams: detectExams(series) };
+  return { courses, notebooks, exams: detectExams(series, today) };
 }
 
 // ---- 2. plan Notion writes -----------------------------------------------------------------

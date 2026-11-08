@@ -71,8 +71,11 @@ ${nb('x2', 'HW01_points', '1.1) *1.0 OK\n2.1) *2.5 Used N instead of M')}</div><
 
 export const EXAM_OVERVIEW = `<html><body><main>
 <p>You have not signed up for any examination date available.</p>
-<a href="prihl_na_zkousky?fakulta=1433;obdobi=10103;studium=1;lang=en;predmet=1726884;serie=207460">PA191 Advanced Computer Networking - pre-term exam</a> (number of examination dates: 1)
-<a href="/auth/predmet/fi/podzim2026/IA174">IA174 Fundaments of Cryptography</a>
+<p>Courses and their series with upcoming examination dates:</p>
+<A HREF="./prihl_na_zkousky?fakulta=1433;obdobi=10103;studium=1;lang=en;predmet=1726884;serie=207460"><B>PA191 Advanced Computer Networking - pre-term exam</B></A> (number of examination dates: 1)
+<p>The courses no upcoming examination dates have been posted for:</p>
+<A HREF="./prihl_na_zkousky?fakulta=1433;obdobi=10103;studium=1;lang=en;predmet=1726807;serie=201111"><B>IA174 Fundaments of Cryptography - přihlašování k výuce</B></A>
+<A HREF="./prihl_na_zkousky?fakulta=1433;obdobi=10103;studium=1;lang=en;predmet=1726925;serie=201112"><B>PV079 Applied Cryptography</B></A>
 </main></body></html>`;
 
 export const EXAM_SERIES = `<html><body><main>
