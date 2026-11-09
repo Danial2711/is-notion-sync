@@ -22,6 +22,8 @@ moves a deadline it set itself, and only when IS changes it.
 
 1. Notion: go to https://www.notion.so/profile/integrations, create a **New integration** (internal) called "IS Sync",
    and copy its secret. Then on the **Student Planner** page, open `•••` → *Connections* and add **IS Sync**.
+   Put the IDs of your Assignments, Courses and Exams databases (the part of each database URL before `?v=`)
+   into `vars` in `wrangler.example.jsonc`. The expected properties are described in `docs/SITE.md`.
 2. `npm install && npm run setup`. This logs in to Cloudflare, creates the KV namespace and deploys. It then asks for
    the secrets `RUN_PASSWORD`, `IS_UCO`, `IS_PASSWORD` and `NOTION_TOKEN` in wrangler's hidden prompt. The password
    goes straight to Cloudflare's encrypted secret store.
@@ -39,3 +41,12 @@ Update `TERM` and `COURSES` in `src/config.ts` (map new courses the same way, se
 
 `npm test` runs the parsers against fixtures shaped like the real pages, plus a fake-IS + fake-Notion end-to-end run.
 `npm run typecheck`, `npm run deploy`.
+
+## Built with Claude Code
+
+Developed with [Claude Code](https://claude.com/claude-code): the IS pages were mapped first (`docs/SITE.md`),
+then the parsers were written test-first against fixtures shaped like the real pages.
+
+## License
+
+[Apache-2.0](LICENSE)

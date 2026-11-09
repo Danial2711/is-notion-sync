@@ -11,9 +11,9 @@
   "triggers": { "crons": ["0 5-21/2 * * *"] },
   "vars": {
     // Notion database IDs (the part of the database URL before "?v=").
-    "NOTION_ASSIGNMENTS_DB": "267156cb1caa81d8b235c4aced26bcb5",
-    "NOTION_COURSES_DB": "267156cb1caa8129b4eafd4351f780e8",
-    "NOTION_EXAMS_DB": "dd338880299d4869956a0089fd3bc28a"
+    "NOTION_ASSIGNMENTS_DB": "YOUR_ASSIGNMENTS_DB_ID",
+    "NOTION_COURSES_DB": "YOUR_COURSES_DB_ID",
+    "NOTION_EXAMS_DB": "YOUR_EXAMS_DB_ID"
   },
   "observability": { "enabled": true }
   // Secrets (set with `npx wrangler secret put NAME`, never committed):
